@@ -17,32 +17,57 @@ public class BookStorageApp extends JFrame {
 
     public BookStorageApp() {
         setTitle("Book Storage App");
-        setSize(400, 300);
+        setSize(500, 250);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JPanel panel = new JPanel(new GridLayout(5, 2));
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.insets = new Insets(5, 5, 5, 5);
 
         JLabel titleLabel = new JLabel("Title:");
-        titleField = new JTextField();
+        titleField = new JTextField(20);
         JLabel authorLabel = new JLabel("Author:");
-        authorField = new JTextField();
+        authorField = new JTextField(20);
         JLabel genreLabel = new JLabel("Genre:");
-        genreField = new JTextField();
+        genreField = new JTextField(20);
         JLabel publicationDateLabel = new JLabel("Publication Date (YYYY-MM-DD):");
-        publicationDateField = new JTextField();
+        publicationDateField = new JTextField(20);
 
         JButton submitButton = new JButton("Submit");
 
-        panel.add(titleLabel);
-        panel.add(titleField);
-        panel.add(authorLabel);
-        panel.add(authorField);
-        panel.add(genreLabel);
-        panel.add(genreField);
-        panel.add(publicationDateLabel);
-        panel.add(publicationDateField);
-        panel.add(new JLabel()); // Empty label for spacing
-        panel.add(submitButton);
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        panel.add(titleLabel, constraints);
+
+        constraints.gridx = 1;
+        panel.add(titleField, constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy = 1;
+        panel.add(authorLabel, constraints);
+
+        constraints.gridx = 1;
+        panel.add(authorField, constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy = 2;
+        panel.add(genreLabel, constraints);
+
+        constraints.gridx = 1;
+        panel.add(genreField, constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy = 3;
+        panel.add(publicationDateLabel, constraints);
+
+        constraints.gridx = 1;
+        panel.add(publicationDateField, constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy = 4;
+        constraints.gridwidth = 2;
+        panel.add(submitButton, constraints);
 
         add(panel);
 
@@ -113,6 +138,13 @@ public class BookStorageApp extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
+            try {
+                // Set the look and feel to improve UI
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             BookStorageApp app = new BookStorageApp();
             app.setVisible(true);
         });
