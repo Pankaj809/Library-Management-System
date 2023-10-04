@@ -13,12 +13,13 @@ public class BookDisplayApp extends JFrame {
 
     public BookDisplayApp() {
         setTitle("Book Display App");
-        setSize(600, 400);
+        setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        bookPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JScrollPane scrollPane = new JScrollPane(bookPanel);
+        bookPanel = new JPanel();
+        bookPanel.setLayout(new GridLayout(0, 1, 0, 10)); // Vertical layout with spacing
 
+        JScrollPane scrollPane = new JScrollPane(bookPanel);
         add(scrollPane);
 
         displayBooks();
@@ -72,15 +73,13 @@ public class BookDisplayApp extends JFrame {
 
     private JPanel createBookFrame(String title, String author, String publicationDate) {
         JPanel bookFrame = new JPanel();
-        bookFrame.setLayout(new BoxLayout(bookFrame, BoxLayout.Y_AXIS));
-        bookFrame.setPreferredSize(new Dimension(150, 200));
+        bookFrame.setLayout(new GridLayout(3, 1, 0, 5)); // Vertical layout with spacing
         bookFrame.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         JLabel titleLabel = new JLabel("Title: " + title);
         JLabel authorLabel = new JLabel("Author: " + author);
         JLabel dateLabel = new JLabel("Date Published: " + publicationDate);
 
-        bookFrame.add(Box.createVerticalStrut(10));
         bookFrame.add(titleLabel);
         bookFrame.add(authorLabel);
         bookFrame.add(dateLabel);
@@ -90,6 +89,13 @@ public class BookDisplayApp extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
+            try {
+                // Set the look and feel to improve UI
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             BookDisplayApp app = new BookDisplayApp();
             app.setVisible(true);
         });
